@@ -1,10 +1,10 @@
-.PHONY: init test clean
+.PHONY: init test clean coverage lint
 
 test:
 	python3 -m unittest discover -v
 
 init:
-	pip-3.2 install -r requirements.txt
+	pip install -r requirements.txt
 
 clean:
 	rm -rf test/*.pyc
