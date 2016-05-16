@@ -3,6 +3,7 @@
 """ Hobeta file utils """
 
 import os
+import sys
 import logging
 import struct
 from collections import namedtuple
@@ -109,7 +110,7 @@ def strip_header(parsed_args):
     return bytes_to_copy-length
 
 
-def parse_args():
+def parse_args(args):
     """ Parse command line arguments """
     parser = argparse.ArgumentParser(description="Hobeta files converter")
     parser.add_argument(
@@ -143,12 +144,12 @@ def parse_args():
         help="Show Hobeta header format description")
     help_parser.set_defaults(func=hobeta_help)
 
-    return parser.parse_args()
+    return parser.parse_args(args)
 
 
 def main():
     """ Entry point """
-    args = parse_args()
+    args = parse_args(sys.argv[1:])
     if args.verbose:
         logging.basicConfig(level=logging.DEBUG)
 

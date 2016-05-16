@@ -129,6 +129,10 @@ class TestHobeta(unittest.TestCase):
             temp_output_file.close()
             os.remove(temp_output_path)
 
+    def test_args_parser(self):
+        parser = hobeta.parse_args(['hobeta-help'])
+        self.assertTrue(parser.func)
+
 
 if __name__ == '__main__':
     unittest.main()
