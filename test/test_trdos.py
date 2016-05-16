@@ -10,7 +10,8 @@ from zxtools import trdos
 class TestTRDos(unittest.TestCase):
     def test_fat_format(self):
         data = b"filenameC\x00\x80\xf9\x06\x07\xC1\x01"
-        record = trdos.FATRecord._make(struct.unpack_from(trdos.FAT_RECORD_FMT, data))
+        record = trdos.FATRecord._make(
+            struct.unpack_from(trdos.FAT_RECORD_FMT, data))
 
         self.assertEqual(record.filename, b"filename")
         self.assertEqual(record.filetype, ord("C"))

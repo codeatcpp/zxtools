@@ -8,7 +8,7 @@ with open('README.md') as f:
     readme = f.read()
 
 with open('LICENSE') as f:
-    license = f.read()
+    flicense = f.read()
 
 setup(
     name='zxtools',
@@ -18,7 +18,7 @@ setup(
     author='Kirill V. Lyadvinsky',
     author_email='mail@codeatcpp.com',
     url='https://github.com/codeatcpp/zxtools',
-    license=license,
+    license=flicense,
     packages=find_packages(exclude=('test', 'docs')),
     test_suite="test"
 )

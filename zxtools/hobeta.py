@@ -9,26 +9,29 @@ from collections import namedtuple
 import argparse
 import numpy
 
-# Hobeta file has the following format:
-# (this is accroding to http://speccy.info/Hobeta)
-#
-# 0                   1                   2                   3
-# 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-# +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-# |TR-DOS FILENAME|T| S | L |F|C|CHK| RAW FILE DATA...
-# +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-#
-#  T   - File type. Standard types are B, C, D, #.
-#  S   - TR-DOS START parameter (ORG for CODE, LEN for BASIC)
-#  L   - TR-DOS LENGTH parameter (size in bytes)
-#  F   - The first occupied sector or just padding?
-#  C   - File size in TR-DOS sectors
-#  CHK - Checksum of this header (excluding CHK)
-#
 HEADER_FMT = '<8sBHHBBH'
 Header = namedtuple(
     'Header',
     'filename filetype start length first_sector occupied_sectors check_sum')
+
+
+def hobeta_help(*parsed_args):
+    print(
+        "Hobeta file has the following format:\n"
+        "(this is accroding to http://speccy.info/Hobeta)\n"
+        "\n"
+        "0                   1                   2                   3\n"
+        "0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1\n"
+        "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n"
+        "|TR-DOS FILENAME|T| S | L |F|C|CHK| RAW FILE DATA...\n"
+        "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n"
+        "\n"
+        " T   - File type. Standard types are B, C, D, #.\n"
+        " S   - TR-DOS START parameter (ORG for CODE, LEN for BASIC)\n"
+        " L   - TR-DOS LENGTH parameter (size in bytes)\n"
+        " F   - The first occupied sector or just padding?\n"
+        " C   - File size in TR-DOS sectors\n"
+        " CHK - Checksum of this header (excluding CHK)")
 
 
 def calc_checksum(data):
@@ -68,8 +71,7 @@ def show_info(parsed_args):
          "Occupied sectors:\t" + str(header.occupied_sectors) + "\n" +
          "Check sum:\t" + str(header.check_sum) + " " +
          ("(OK)" if crc == header.check_sum
-          else "(WRONG! Should be " + str(crc) + ")")
-        ).expandtabs(20))
+          else "(WRONG! Should be " + str(crc) + ")")).expandtabs(20))
 
 
 def strip_header(parsed_args):
@@ -80,7 +82,7 @@ def strip_header(parsed_args):
     if header.check_sum != crc:
         print("WARNING: wrong checksum in the header.")
 
-    buf_size = 512*1024 # 512 KBytes
+    buf_size = 512*1024  # 512 KBytes
     header_size = struct.calcsize(HEADER_FMT)
 
     with parsed_args.hobeta_file as src_file:
@@ -132,9 +134,14 @@ def parse_args():
         'output_file', metavar='output-file',
         type=argparse.FileType('wb', 0), help="Path to the output file")
     strip_parser.add_argument(
-        '--ignore-header', '--ignore_header',
+        '--ignore_header', dest='ignore-header',
         action='store_true', help="Ignore the file size from Hobeta header")
     strip_parser.set_defaults(func=strip_header)
+
+    help_parser = subparsers.add_parser(
+        'hobeta-help',
+        help="Show Hobeta header format description")
+    help_parser.set_defaults(func=hobeta_help)
 
     return parser.parse_args()
 
@@ -145,7 +152,8 @@ def main():
     if args.verbose:
         logging.basicConfig(level=logging.DEBUG)
 
-    args.func(args)
+    if hasattr(args, 'func'):
+        args.func(args)
 
 
 if __name__ == '__main__':
