@@ -149,7 +149,7 @@ def convert_file(parsed_args):
             if b == 0x0A:
                 tab = True
                 continue
-            if b < ord('z'):  # Printable character
+            if b < min(ASM_META, key=ASM_META.get):  # Printable character
                 print(chr(b), end="", file=output)
                 continue
             try:
