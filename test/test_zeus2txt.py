@@ -2,11 +2,12 @@
 # vim: set fileencoding=utf-8 :
 """ zeus2txt.py tests """
 
-import os
 import io
-import unittest
+import os
 import tempfile
+import unittest
 from collections import namedtuple
+
 from zxtools import zeus2txt
 
 
@@ -23,7 +24,7 @@ class TestZeus2Txt(unittest.TestCase):
         # temp_output_file = open(temp_output_path, "rb")
         temp_output_file.seek(0, os.SEEK_END)
         try:
-            self.assertEqual(temp_output_file.tell(), 3301)
+            self.assertEqual(temp_output_file.tell(), 3302)
         finally:
             temp_output_file.close()
             os.remove(temp_output_path)
