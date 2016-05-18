@@ -11,6 +11,7 @@ clean:
 	rm -rf zxtools/*.pyc
 	rm -rf test/__pycache__
 	rm -rf zxtools/__pycache__
+	rm -rf zxtools.egg-info
 
 coverage:
 	coverage run --source zxtools setup.py test

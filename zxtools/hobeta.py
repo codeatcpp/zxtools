@@ -10,6 +10,8 @@ from collections import namedtuple
 import argparse
 import numpy
 
+from zxtools import CHUNK_SIZE
+
 HEADER_FMT = '<8sBHHBBH'
 Header = namedtuple(
     'Header',
@@ -83,7 +85,6 @@ def strip_header(parsed_args):
     if header.check_sum != crc:
         print("WARNING: wrong checksum in the header.")
 
-    buf_size = 512*1024  # 512 KBytes
     header_size = struct.calcsize(HEADER_FMT)
 
     with parsed_args.hobeta_file as src_file:
@@ -99,7 +100,7 @@ def strip_header(parsed_args):
         src_file.seek(header_size)
         with parsed_args.output_file as dst_file:
             while length:
-                chunk_size = min(buf_size, length)
+                chunk_size = min(CHUNK_SIZE, length)
                 data = src_file.read(chunk_size)
                 if not data:
                     break
@@ -135,7 +136,7 @@ def parse_args(args):
         'output_file', metavar='output-file',
         type=argparse.FileType('wb', 0), help="Path to the output file")
     strip_parser.add_argument(
-        '--ignore_header', dest='ignore-header',
+        '--ignore-header', dest='ignore_header',
         action='store_true', help="Ignore the file size from Hobeta header")
     strip_parser.set_defaults(func=strip_header)
 
