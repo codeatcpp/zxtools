@@ -8,7 +8,6 @@ import logging
 import struct
 from collections import namedtuple
 import argparse
-import numpy
 
 from zxtools import CHUNK_SIZE
 
@@ -41,7 +40,7 @@ def calc_checksum(data):
     """ Calculate checksum for data """
     check_sum = 0
     for i, value in enumerate(data):
-        check_sum = numpy.uint16(check_sum + value*257 + i)
+        check_sum = (check_sum + value*257 + i) % 0x10000
     return check_sum
 
 
