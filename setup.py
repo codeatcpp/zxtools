@@ -4,12 +4,14 @@
 from setuptools import setup, find_packages
 
 
+with open('README.rst') as f:
+    readme = f.read()
+
 setup(
     name='zxtools',
-    version='1.0.0',
+    version='1.0.11',
     description='Tools to manipulate files from ZX Spectrum',
-    long_description='Here’s a set of utils to manipulate files that were copied from a TR-DOS diskette or from a tape.'
-    '\n\nYou can find more info in README.md at https://github.com/codeatcpp/zxtools',
+    long_description=readme,
     author='Kirill V. Lyadvinsky',
     author_email='mail@codeatcpp.com',
     download_url='https://github.com/codeatcpp/zxtools',
@@ -19,8 +21,10 @@ setup(
     test_suite="test",
     classifiers=[
         'Development Status :: 5 - Production/Stable',
+        'Operating System :: OS Independent',
         'Environment :: Console',
         'Intended Audience :: Developers',
+        'Programming Language :: Python',
         'Programming Language :: Python :: 3 :: Only',
         'Topic :: Software Development',
         'Topic :: Utilities'
