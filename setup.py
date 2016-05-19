@@ -4,9 +4,6 @@
 from setuptools import setup, find_packages
 
 
-with open('LICENSE') as f:
-    flicense = f.read()
-
 setup(
     name='zxtools',
     version='1.0.0',
@@ -17,7 +14,7 @@ setup(
     author_email='mail@codeatcpp.com',
     download_url='https://github.com/codeatcpp/zxtools',
     url='http://www.codeatcpp.com',
-    license=flicense,
+    license='BSD-3-Clause',
     packages=find_packages(exclude=('test', 'docs')),
     test_suite="test",
     classifiers=[
