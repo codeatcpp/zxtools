@@ -12,7 +12,7 @@ Originally the tools were written to simplify the following workflow:
 
 But you can use them in the way you need. And it's very easy to use: download the package, run ``setup.py`` (or install via ``pip install zxtools``), invoke in the following way::
 
-   $ python -m zxtools.hobeta strip input.hobetta result.zeus
-   $ python -m zxtools.zeus2txt result.zeus listing.txt
+   $ python3 -m zxtools.hobeta strip input.hobetta result.zeus
+   $ python3 -m zxtools.zeus2txt result.zeus listing.txt
 
 NOTE: You need Python 3 to use this package.

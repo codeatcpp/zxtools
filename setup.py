@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 # vim: set fileencoding=utf-8 :
 
 from setuptools import setup, find_packages
@@ -9,7 +9,7 @@ with open('README.rst') as f:
 
 setup(
     name='zxtools',
-    version='1.0.11',
+    version='1.0.15',
     description='Tools to manipulate files from ZX Spectrum',
     long_description=readme,
     author='Kirill V. Lyadvinsky',

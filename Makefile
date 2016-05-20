@@ -3,9 +3,6 @@
 test:
 	python3 -m unittest discover -v
 
-#init:
-#	pip install -r requirements.txt
-
 clean:
 	rm -rf test/*.pyc
 	rm -rf zxtools/*.pyc
