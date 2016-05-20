@@ -8,8 +8,11 @@ python:
      - "nightly" # currently points to 3.6-dev
 # command to install dependencies
 install:
-     - "pip install coverage"
-# # command to run tests
+     # Coveralls 4.0 doesn't support Python 3.2
+     - if [ "$TRAVIS_PYTHON_VERSION" == "3.2" ]; then travis_retry pip install coverage==3.7.1; fi
+     - if [ "$TRAVIS_PYTHON_VERSION" != "3.2" ]; then travis_retry pip install coverage; fi
+
+# command to run tests
 script:
      - "nosetests"
      - "make coverage"
