@@ -7,11 +7,12 @@ python:
      - "3.5-dev" # 3.5 development branch
      - "nightly" # currently points to 3.6-dev
 # command to install dependencies
-# install: "pip install -r requirements.txt"
+install:
+     - "pip install coverage"
 # # command to run tests
 script:
-     - nosetests
-     - make coverage
+     - "nosetests"
+     - "make coverage"
 
 after_success:
-    - bash <(curl -s https://codecov.io/bash)
+    - "bash <(curl -s https://codecov.io/bash)"
