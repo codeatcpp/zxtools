@@ -2,7 +2,7 @@
 Python tools to manipulate ZX Spectrum files
 ============================================
 
-Here’s a set of utils to manipulate files that were copied from a TR-DOS diskette or from a tape.
+Here's a set of utils to manipulate files that were copied from a TR-DOS diskette or from a tape.
 
 Originally the tools were written to simplify the following workflow:
 
