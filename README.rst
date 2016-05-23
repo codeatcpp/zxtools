@@ -1,5 +1,5 @@
 ============================================
-Python tools to manipulate ZX Spectrum files
+Tools to manipulate ZX Spectrum files
 ============================================
 
 .. image:: https://travis-ci.org/codeatcpp/zxtools.svg?branch=master
