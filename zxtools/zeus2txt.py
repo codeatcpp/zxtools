@@ -23,110 +23,19 @@ def read_file(src_file):
             else:
                 break
 
-
-ASM_META = {
-    128:    "A",
-    129:    "ADC ",
-    130:    "ADD ",
-    131:    "AF'",
-    132:    "AF",
-    133:    "AND ",
-    134:    "B",
-    135:    "BC",
-    136:    "BIT ",
-    137:    "C",
-    138:    "CALL ",
-    139:    "CCF",
-    140:    "CP ",
-    141:    "CPD",
-    142:    "CPDR",
-    143:    "CPI",
-    144:    "CPIR",
-    145:    "CPL",
-    146:    "D",
-    147:    "DAA",
-    148:    "DE",
-    149:    "DEC ",
-    150:    "DEFB ",
-    151:    "DEFM ",
-    152:    "DEFS ",
-    153:    "DEFW ",
-    154:    "DI",
-    155:    "DISP ",
-    156:    "DJNZ ",
-    157:    "E",
-    158:    "EI",
-    159:    "ENT",
-    160:    "EQU ",
-    161:    "EX ",
-    162:    "EXX",
-    163:    "H",
-    164:    "HALT",
-    165:    "HL",
-    166:    "I",
-    167:    "IM ",
-    168:    "IN ",
-    169:    "INC ",
-    170:    "IND",
-    171:    "INDR",
-    172:    "INI",
-    173:    "INIR",
-    174:    "IX",
-    175:    "IY",
-    176:    "JP ",
-    177:    "JR ",
-    178:    "L",
-    179:    "LD ",
-    180:    "LDD",
-    181:    "LDDR",
-    182:    "LDI",
-    183:    "LDIR",
-    184:    "M",
-    185:    "NC",
-    186:    "NEG",
-    187:    "NOP",
-    188:    "NV",
-    189:    "NZ",
-    190:    "OR ",
-    191:    "ORG ",
-    192:    "OTDR",
-    193:    "OTIR",
-    194:    "OUT ",
-    195:    "OUTD",
-    196:    "OUTI",
-    197:    "P",
-    198:    "PE",
-    199:    "PO",
-    200:    "POP ",
-    201:    "PUSH ",
-    202:    "R",
-    203:    "RES ",
-    204:    "RET",
-    205:    "RETI",
-    206:    "RETN",
-    207:    "RL ",
-    208:    "RLA",
-    209:    "RLC ",
-    210:    "RLCA",
-    211:    "RLD",
-    212:    "RR ",
-    213:    "RRA",
-    214:    "RRC ",
-    215:    "RRCA",
-    216:    "RRD",
-    217:    "RST ",
-    218:    "SBC ",
-    219:    "SCF",
-    220:    "SET ",
-    221:    "SLA ",
-    222:    "SP",
-    223:    "SRA ",
-    224:    "SRL ",
-    225:    "SUB ",
-    226:    "V",
-    227:    "XOR ",
-    228:    "Z"
-}
+ASM_FIRST_TOKEN = 128
+ASM_META = [
+    "A", "ADC ", "ADD ", "AF'", "AF", "AND ", "B", "BC", "BIT ", "C",
+    "CALL ", "CCF", "CP ", "CPD", "CPDR", "CPI", "CPIR", "CPL", "D", "DAA",
+    "DE", "DEC ", "DEFB ", "DEFM ", "DEFS ", "DEFW ", "DI", "DISP ", "DJNZ ",
+    "E", "EI", "ENT", "EQU ", "EX ", "EXX", "H", "HALT", "HL", "I", "IM ",
+    "IN ", "INC ", "IND", "INDR", "INI", "INIR", "IX", "IY", "JP ", "JR ",
+    "L", "LD ", "LDD", "LDDR", "LDI", "LDIR", "M", "NC", "NEG", "NOP", "NV",
+    "NZ", "OR ", "ORG ", "OTDR", "OTIR", "OUT ", "OUTD", "OUTI", "P", "PE",
+    "PO", "POP ", "PUSH ", "R", "RES ", "RET", "RETI", "RETN", "RL ", "RLA",
+    "RLC ", "RLCA", "RLD", "RR ", "RRA", "RRC ", "RRCA", "RRD", "RST ",
+    "SBC ", "SCF", "SET ", "SLA ", "SP", "SRA ", "SRL ", "SUB ", "V", "XOR ",
+    "Z"]
 
 
 def convert_file(parsed_args):
@@ -149,11 +58,11 @@ def convert_file(parsed_args):
             if b == 0x0A:
                 tab = True
                 continue
-            if b < min(ASM_META, key=ASM_META.get):  # Printable character
+            if b < ASM_FIRST_TOKEN:  # Printable character
                 print(chr(b), end="", file=output)
                 continue
             try:
-                print(ASM_META[b], end="", file=output)
+                print(ASM_META[b-ASM_FIRST_TOKEN], end="", file=output)
             except KeyError:
                 print("Token not defined: 0x%02X (%d), at line %05d"
                       % (b, b, strnum))
