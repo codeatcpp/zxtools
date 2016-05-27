@@ -14,7 +14,7 @@ Originally the tools were written to simplify the following workflow:
 
 1. Grab diskette image using `Hobeta <http://speccy.info/Hobeta>`_ tool.
 2. Strip the file header and save the result to a new file.
-3. Convert resulting Zeus Z80 assembler file to the plain text format.
+3. Convert resulting `Zeus Z80 assembler <https://en.wikipedia.org/wiki/Zeus_Assembler>`_ file to the plain text format.
 
 TODO: I have future plans to implement some more tools I need to restore my old ZX Spectrum projects.
 
