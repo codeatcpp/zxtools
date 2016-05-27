@@ -9,7 +9,7 @@ with open('README.rst') as f:
 
 setup(
     name='zxtools',
-    version='1.0.15',
+    version='1.0.20',
     description='Tools to manipulate files from ZX Spectrum',
     long_description=readme,
     author='Kirill V. Lyadvinsky',
