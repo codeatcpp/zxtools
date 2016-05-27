@@ -13,6 +13,7 @@
 import argparse
 import logging
 import sys
+import io
 
 from zxtools import CHUNK_SIZE
 
@@ -60,20 +61,21 @@ def convert_file(parsed_args):
             if not b:  # End of string
                 process_string = False
                 strnum_lo = False, 0
-                print(file=output)
+                print(file=cur_line)
+                print(cur_line.getvalue(), file=output)
                 continue
             if tab:
-                print(" "*b, end="", file=output)
+                print(" "*b, end="", file=cur_line)
                 tab = False
                 continue
             if b == 0x0A:
                 tab = True
                 continue
             if b < ASM_FIRST_TOKEN:  # Printable character
-                print(chr(b), end="", file=output)
+                print(chr(b), end="", file=cur_line)
                 continue
             try:
-                print(ASM_META[b-ASM_FIRST_TOKEN], end="", file=output)
+                print(ASM_META[b-ASM_FIRST_TOKEN], end="", file=cur_line)
             except IndexError:
                 logger.warning("Token not defined: 0x%02X (%d), at line %05d"
                     % (b, b, strnum))
@@ -85,7 +87,9 @@ def convert_file(parsed_args):
                 if strnum == 0xFFFF:  # End of file
                     print(file=output)
                     break
-                print("%05d" % strnum, end=" ", file=output)
+                cur_line = io.StringIO()
+                cur_line.truncate(0)
+                print("%05d" % strnum, end=" ", file=cur_line)
                 process_string = True
     output.close()
 
