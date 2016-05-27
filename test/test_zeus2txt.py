@@ -1,5 +1,15 @@
 #! /usr/bin/env python
 # vim: set fileencoding=utf-8 :
+# -*- coding: utf-8 -*-
+#
+# Copyright (c) 2016 Kirill V. Lyadvinsky
+# http://www.codeatcpp.com
+#
+# Licensed under the BSD 3-Clause license.
+# See LICENSE file in the project root for full license information.
+#
+""" Convert Zeus Z80 assembler file to a plain text """
+
 """ zeus2txt.py tests """
 
 import io
