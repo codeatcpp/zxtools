@@ -8,8 +8,6 @@
 # Licensed under the BSD 3-Clause license.
 # See LICENSE file in the project root for full license information.
 #
-""" Convert Zeus Z80 assembler file to a plain text """
-
 """ hobeta.py tests """
 
 import os
@@ -24,26 +22,26 @@ from zxtools import hobeta
 class TestHobeta(unittest.TestCase):
     def test_args_parser(self):
         with self.assertRaises(SystemExit):
-            args = hobeta.parse_args(("-h", "-v"))
+            hobeta.parse_args(("-h", "-v"))
 
         temp_in_file = tempfile.mkstemp()[1]
         input_file = open(temp_in_file, "w")
         input_file.close()
         temp_out_file = tempfile.mkstemp()[1]
         try:
-           args = hobeta.parse_args(("info", temp_in_file))
-           self.assertEqual(args.func, hobeta.show_info)
-           args.hobeta_file.close()
+            args = hobeta.parse_args(("info", temp_in_file))
+            self.assertEqual(args.func, hobeta.show_info)
+            args.hobeta_file.close()
 
-           args = hobeta.parse_args(("strip", temp_in_file, temp_out_file))
-           self.assertEqual(args.func, hobeta.strip_header)
-           args.hobeta_file.close()
-           args.output_file.close()
+            args = hobeta.parse_args(("strip", temp_in_file, temp_out_file))
+            self.assertEqual(args.func, hobeta.strip_header)
+            args.hobeta_file.close()
+            args.output_file.close()
         finally:
             os.remove(temp_in_file)
             os.remove(temp_out_file)
 
-    def test_ckechsum(self):
+    def test_checksum(self):
         data = b'F.load.AC\x00\x80\xf9\x06\x00\x07'
         self.assertEqual(hobeta.calc_checksum(data), 20661)
 
@@ -101,8 +99,8 @@ class TestHobeta(unittest.TestCase):
     def strip_header(test_input_file, ignore_header_info):
         temp_output_path = tempfile.mkstemp()[1]
         temp_output_file = open(temp_output_path, "wb")
-        Args = namedtuple('Args', "hobeta_file output_file ignore_header")
-        parsed_args = Args(test_input_file,
+        args = namedtuple('Args', "hobeta_file output_file ignore_header")
+        parsed_args = args(test_input_file,
                            temp_output_file,
                            ignore_header_info)
         copied_bytes = hobeta.strip_header(parsed_args)
@@ -159,10 +157,6 @@ class TestHobeta(unittest.TestCase):
         finally:
             temp_output_file.close()
             os.remove(temp_output_path)
-
-    def test_args_parser(self):
-        parser = hobeta.parse_args(['hobeta-help'])
-        self.assertTrue(parser.func)
 
 
 if __name__ == '__main__':

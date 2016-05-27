@@ -17,6 +17,8 @@ import io
 
 from zxtools import CHUNK_SIZE
 
+CODE_ALIGN_WIDTH = 35
+
 
 def show_info(*parsed_args):
     return
@@ -31,6 +33,7 @@ def read_file(src_file):
                     yield b
             else:
                 break
+
 
 ASM_FIRST_TOKEN = 128
 ASM_META = [
@@ -48,7 +51,8 @@ ASM_META = [
 
 
 def convert_file(parsed_args):
-    """ Convert Zeus Z80 assembler file specified in zeus_file to the plain text and print it to the output_file """
+    """ Convert Zeus Z80 assembler file specified in zeus_file to the plain
+    text and print it to the output_file """
     logger = logging.getLogger('convert_file')
 
     process_string = False
@@ -58,11 +62,17 @@ def convert_file(parsed_args):
     strnum = 0
     for b in read_file(parsed_args.zeus_file):
         if process_string:
+            cur_buffer += "0x%02X " % b
             if not b:  # End of string
                 process_string = False
                 strnum_lo = False, 0
-                print(file=cur_line)
-                print(cur_line.getvalue(), file=output)
+                cur_str = cur_line.getvalue()
+                print(cur_str, end="", file=output)
+                if parsed_args.include_code:
+                    print(" "*(CODE_ALIGN_WIDTH-len(cur_str))+";",
+                          "0x%04X " % strnum + cur_buffer, file=output)
+                else:
+                    print(file=output)
                 continue
             if tab:
                 print(" "*b, end="", file=cur_line)
@@ -77,8 +87,8 @@ def convert_file(parsed_args):
             try:
                 print(ASM_META[b-ASM_FIRST_TOKEN], end="", file=cur_line)
             except IndexError:
-                logger.warning("Token not defined: 0x%02X (%d), at line %05d"
-                    % (b, b, strnum))
+                logger.warning("Token not defined: 0x%02X (%d), at line %05d. "
+                               "Skipped." % (b, b, strnum))
         else:
             if not strnum_lo[0]:
                 strnum_lo = True, b
@@ -89,6 +99,7 @@ def convert_file(parsed_args):
                     break
                 cur_line = io.StringIO()
                 cur_line.truncate(0)
+                cur_buffer = ""
                 print("%05d" % strnum, end=" ", file=cur_line)
                 process_string = True
     output.close()
@@ -120,6 +131,9 @@ def parse_args(args):
     convert_parser.add_argument(
         'output_file', metavar='output-file',
         type=argparse.FileType('w'), help="Path to the output file")
+    convert_parser.add_argument(
+        '--include-code', dest='include_code',
+        action='store_true', help="Include original code in the output file")
     convert_parser.set_defaults(func=convert_file)
 
     return parser.parse_args(args)

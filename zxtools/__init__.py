@@ -8,7 +8,6 @@
 # Licensed under the BSD 3-Clause license.
 # See LICENSE file in the project root for full license information.
 #
-""" Convert Zeus Z80 assembler file to a plain text """
 
 CHUNK_SIZE = 512 * 1024  # 512 KBytes
 

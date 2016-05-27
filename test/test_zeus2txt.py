@@ -8,8 +8,6 @@
 # Licensed under the BSD 3-Clause license.
 # See LICENSE file in the project root for full license information.
 #
-""" Convert Zeus Z80 assembler file to a plain text """
-
 """ zeus2txt.py tests """
 
 import io
@@ -25,33 +23,34 @@ from zxtools import zeus2txt
 class TestZeus2Txt(unittest.TestCase):
     def test_args_parser(self):
         with self.assertRaises(SystemExit):
-            args = zeus2txt.parse_args(("-h", "-v"))
+            zeus2txt.parse_args(("-h", "-v"))
 
         temp_in_file = tempfile.mkstemp()[1]
         input_file = open(temp_in_file, "w")
         input_file.close()
         temp_out_file = tempfile.mkstemp()[1]
         try:
-           args = zeus2txt.parse_args(("info", temp_in_file))
-           self.assertEqual(args.func, zeus2txt.show_info)
-           args.zeus_file.close()
+            args = zeus2txt.parse_args(("info", temp_in_file))
+            self.assertEqual(args.func, zeus2txt.show_info)
+            args.zeus_file.close()
 
-           args = zeus2txt.parse_args(("convert", temp_in_file, temp_out_file))
-           self.assertEqual(args.func, zeus2txt.convert_file)
-           args.zeus_file.close()
-           args.output_file.close()
+            args = zeus2txt.parse_args(("convert",
+                                        temp_in_file, temp_out_file))
+            self.assertEqual(args.func, zeus2txt.convert_file)
+            args.zeus_file.close()
+            args.output_file.close()
         finally:
             os.remove(temp_in_file)
             os.remove(temp_out_file)
 
     @staticmethod
-    def prepare_convert_args(test_data):
+    def prepare_convert_args(test_data, include_code=False):
         test_file = io.BytesIO(test_data)
         temp_output_path = tempfile.mkstemp()[1]
         temp_output_file = open(temp_output_path, "w")
 
-        Args = namedtuple('Args', "zeus_file output_file")
-        parsed_args = Args(test_file, temp_output_file)
+        args = namedtuple('Args', "zeus_file output_file include_code")
+        parsed_args = args(test_file, temp_output_file, include_code)
         return parsed_args, temp_output_path, temp_output_file
 
     def test_undefined_token(self):
@@ -64,7 +63,7 @@ class TestZeus2Txt(unittest.TestCase):
             temp_output_file.close()
             temp_output_file = open(temp_output_path, "r")
             lines = temp_output_file.read().splitlines()
-            self.assertEqual(lines, ["00010       ,42",""])
+            self.assertEqual(lines, ["00010       ,42", ""])
         finally:
             temp_output_file.close()
             os.remove(temp_output_path)
@@ -78,7 +77,24 @@ class TestZeus2Txt(unittest.TestCase):
             temp_output_file.close()
             temp_output_file = open(temp_output_path, "r")
             lines = temp_output_file.read().splitlines()
-            self.assertEqual(lines, ["00010       ADD BC,42",])
+            self.assertEqual(lines, ["00010       ADD BC,42", ])
+        finally:
+            temp_output_file.close()
+            os.remove(temp_output_path)
+
+    def test_include_code(self):
+        args, temp_output_path, temp_output_file = self.prepare_convert_args(
+            b"\x0A\x00\x0A\x06\x82\x87\x2C\x34\x32\x00", True)
+
+        try:
+            zeus2txt.convert_file(args)
+            temp_output_file.close()
+            temp_output_file = open(temp_output_path, "r")
+            lines = temp_output_file.read().splitlines()
+            self.assertEqual(lines, ["00010       ADD BC,42"
+                                     "              ; 0x000A "
+                                     "0x0A 0x06 0x82 0x87 "
+                                     "0x2C 0x34 0x32 0x00 ", ])
         finally:
             temp_output_file.close()
             os.remove(temp_output_path)
@@ -422,6 +438,7 @@ class TestZeus2Txt(unittest.TestCase):
             b"\x45\x46\x42\x20\x30\x0A\x36\x30\x31\x38\x30\x20\x45\x4E\x44\x32"
             b"\x20\x20\x4E\x4F\x50\x0A"
         )
+
 
 if __name__ == '__main__':
     unittest.main()

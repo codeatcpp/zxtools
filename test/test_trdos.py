@@ -8,8 +8,6 @@
 # Licensed under the BSD 3-Clause license.
 # See LICENSE file in the project root for full license information.
 #
-""" Convert Zeus Z80 assembler file to a plain text """
-
 """ trdos.py tests """
 
 import unittest

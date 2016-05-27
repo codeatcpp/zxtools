@@ -12,7 +12,7 @@
 
 from collections import namedtuple
 
-# TR-DOS diskette stucture description
+# TR-DOS diskette structure description
 #
 # 0 track contains FAT in sectors 0..7
 ###############################################################################
