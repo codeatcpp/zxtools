@@ -72,6 +72,7 @@ def convert_file(parsed_args):
             else:
                 strnum = strnum_lo[1] + b*256
                 if strnum == 0xFFFF:  # End of file
+                    print(file=output)
                     break
                 print("%05d" % strnum, end=" ", file=output)
                 process_string = True
