@@ -39,6 +39,9 @@ ASM_META = [
 
 
 def convert_file(parsed_args):
+    """ Convert Zeus Z80 assembler file specified in zeus_file to the plain text and print it to the output_file """
+    logger = logging.getLogger('convert_file')
+
     process_string = False
     strnum_lo = False, 0
     tab = False
@@ -63,9 +66,9 @@ def convert_file(parsed_args):
                 continue
             try:
                 print(ASM_META[b-ASM_FIRST_TOKEN], end="", file=output)
-            except KeyError:
-                print("Token not defined: 0x%02X (%d), at line %05d"
-                      % (b, b, strnum))
+            except IndexError:
+                logger.warning("Token not defined: 0x%02X (%d), at line %05d"
+                    % (b, b, strnum))
         else:
             if not strnum_lo[0]:
                 strnum_lo = True, b
@@ -76,6 +79,7 @@ def convert_file(parsed_args):
                     break
                 print("%05d" % strnum, end=" ", file=output)
                 process_string = True
+    output.close()
 
 
 def parse_args(args):

@@ -107,6 +107,8 @@ def strip_header(parsed_args):
                 length -= len(data)
     print("Created file %s, %d bytes copied." %
           (dst_file.name, bytes_to_copy-length))
+    dst_file.close()
+    src_file.close()
     return bytes_to_copy-length
 
 

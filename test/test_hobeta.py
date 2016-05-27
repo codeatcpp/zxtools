@@ -12,6 +12,27 @@ from zxtools import hobeta
 
 
 class TestHobeta(unittest.TestCase):
+    def test_args_parser(self):
+        with self.assertRaises(SystemExit):
+            args = hobeta.parse_args(("-h", "-v"))
+
+        temp_in_file = tempfile.mkstemp()[1]
+        input_file = open(temp_in_file, "w")
+        input_file.close()
+        temp_out_file = tempfile.mkstemp()[1]
+        try:
+           args = hobeta.parse_args(("info", temp_in_file))
+           self.assertEqual(args.func, hobeta.show_info)
+           args.hobeta_file.close()
+
+           args = hobeta.parse_args(("strip", temp_in_file, temp_out_file))
+           self.assertEqual(args.func, hobeta.strip_header)
+           args.hobeta_file.close()
+           args.output_file.close()
+        finally:
+            os.remove(temp_in_file)
+            os.remove(temp_out_file)
+
     def test_ckechsum(self):
         data = b'F.load.AC\x00\x80\xf9\x06\x00\x07'
         self.assertEqual(hobeta.calc_checksum(data), 20661)

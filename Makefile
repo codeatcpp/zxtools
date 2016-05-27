@@ -1,7 +1,7 @@
 .PHONY: init test clean coverage lint
 
 test:
-	python3 -m unittest discover -v
+	python3 -m unittest discover -v -b
 
 clean:
 	rm -rf test/*.pyc
