@@ -21,9 +21,13 @@ TODO: I have future plans to implement some more tools I need to restore my old 
 But you can use them in the way you need. And it's very easy to use: download the package, run ``setup.py`` (or install via ``pip install zxtools``), invoke in the following way::
 
    $ python3 -m zxtools.hobeta strip input.hobeta result.zeus
-   $ python3 -m zxtools.zeus2txt result.zeus listing.txt --include-code
+   $ python3 -m zxtools.zeus2txt result.zeus listing.asm --include-code
 
 .. image:: zeus2txt.jpg
 
 NOTE: Python 3 is required to use this package, and Python 2 is not supported but you are welcome to fix it.
 
+To view the resulting files with syntax colorization you can use special `Visual Studio Code plugin <https://marketplace.visualstudio.com/items?itemName=jia3ep.zeus-z80-asm>`_:
+
+.. image:: https://raw.githubusercontent.com/codeatcpp/vscode-language-z80-asm/master/vscode.png
+   :target: https://marketplace.visualstudio.com/items?itemName=jia3ep.zeus-z80-asm
