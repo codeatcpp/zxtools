@@ -11,7 +11,7 @@ with open(join(dirname(__file__), 'zxtools', '__init__.py'), 'r') as f:
     version_info = re.match(r".*__version__ = '(.*?)'", f.read(), re.S).group(1)
 
 with open('README.rst') as f:
-    long_readme = f.read
+    long_readme = f.read()
 
 dev_requires = [
     'pytest>=2.8',
