@@ -1,5 +1,4 @@
 #! /usr/bin/env python
-# vim: set fileencoding=utf-8 :
 # -*- coding: utf-8 -*-
 #
 # Copyright (c) 2016 Kirill V. Lyadvinsky

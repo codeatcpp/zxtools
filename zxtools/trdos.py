@@ -1,5 +1,4 @@
 #! /usr/bin/env python
-# vim: set fileencoding=utf-8 :
 # -*- coding: utf-8 -*-
 #
 # Copyright (c) 2016 Kirill V. Lyadvinsky
@@ -43,4 +42,3 @@ FATRecord = namedtuple('FATRecord', 'filename filetype start length '
 # Sector 8 contains disk information in the following format:
 #
 #
-

@@ -1,5 +1,4 @@
 #! /usr/bin/env python
-# vim: set fileencoding=utf-8 :
 # -*- coding: utf-8 -*-
 #
 # Copyright (c) 2016 Kirill V. Lyadvinsky
@@ -9,5 +8,5 @@
 # See LICENSE file in the project root for full license information.
 #
 
+__version__ = '1.0.21'
 CHUNK_SIZE = 512 * 1024  # 512 KBytes
-

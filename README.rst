@@ -2,11 +2,20 @@
 Tools to manipulate ZX Spectrum files
 =====================================
 
-.. image:: https://travis-ci.org/codeatcpp/zxtools.svg?branch=master
+.. image:: https://img.shields.io/travis/codeatcpp/zxtools/master.svg?style=flat
    :target: https://travis-ci.org/codeatcpp/zxtools
 
 .. image:: https://codecov.io/gh/codeatcpp/zxtools/branch/master/graph/badge.svg
-   :target: https://codecov.io/gh/codeatcpp/zxtools    
+   :target: https://codecov.io/gh/codeatcpp/zxtools
+
+.. image:: https://img.shields.io/github/release/codeatcpp/zxtools.svg?style=flat
+   :target: https://github.com/codeatcpp/zxtools/releases
+
+.. image:: https://img.shields.io/pypi/v/zxtools.svg?style=flat
+   :target: https://pypi.python.org/pypi/zxtools
+
+.. image:: http://img.shields.io/pypi/dm/zxtools.svg?style=flat
+   :target: https://pypi.python.org/pypi/zxtools
 
 Here's a set of utils to manipulate files that were copied from a TR-DOS diskette or from a tape.
 
