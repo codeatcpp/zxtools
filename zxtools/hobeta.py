@@ -41,6 +41,7 @@ def hobeta_help(*parsed_args):
         " F   - The first occupied sector or just padding?\n"
         " C   - File size in TR-DOS sectors\n"
         " CHK - Checksum of this header (excluding CHK)")
+    return parsed_args
 
 
 def calc_checksum(data):
@@ -153,7 +154,15 @@ def parse_args(args):
         help="Show Hobeta header format description")
     help_parser.set_defaults(func=hobeta_help)
 
-    return parser.parse_args(args)
+    try:
+        options = parser.parse_args(args)
+        if len(args) == 0:
+            raise ValueError
+    except ValueError:
+        parser.print_help()
+        sys.exit(0)
+
+    return options
 
 
 def main():

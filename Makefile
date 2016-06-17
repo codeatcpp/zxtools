@@ -9,6 +9,7 @@ clean:
 	rm -rf test/__pycache__
 	rm -rf zxtools/__pycache__
 	rm -rf zxtools.egg-info
+	rm -rf coverage.xml
 
 coverage:
 	coverage run --source zxtools setup.py test

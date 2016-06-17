@@ -25,6 +25,9 @@ class TestZeus2Txt(unittest.TestCase):
         with self.assertRaises(SystemExit):
             zeus2txt.parse_args(("-h", "-v"))
 
+        with self.assertRaises(SystemExit):
+            zeus2txt.parse_args(())
+
         temp_in_file = tempfile.mkstemp()[1]
         input_file = open(temp_in_file, "w")
         input_file.close()
