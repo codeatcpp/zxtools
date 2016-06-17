@@ -32,7 +32,7 @@ But you can use them in the way you need. And it's very easy to use: download th
    $ python3 -m zxtools.hobeta strip input.hobeta result.zeus
    $ python3 -m zxtools.zeus2txt result.zeus listing.asm --include-code
 
-.. image:: zeus2txt.jpg
+.. image:: https://raw.githubusercontent.com/codeatcpp/zxtools/master/zeus2txt.jpg
 
 NOTE: Python 3 is required to use this package, and Python 2 is not supported but you are welcome to fix it.
 
