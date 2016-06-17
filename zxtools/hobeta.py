@@ -41,6 +41,7 @@ def hobeta_help(*parsed_args):
         " F   - The first occupied sector or just padding?\n"
         " C   - File size in TR-DOS sectors\n"
         " CHK - Checksum of this header (excluding CHK)")
+    return parsed_args
 
 
 def calc_checksum(data):
@@ -157,7 +158,7 @@ def parse_args(args):
         options = parser.parse_args(args)
         if len(args) == 0:
             raise ValueError
-    except:
+    except ValueError:
         parser.print_help()
         sys.exit(0)
 
