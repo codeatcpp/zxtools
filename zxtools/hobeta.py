@@ -153,7 +153,15 @@ def parse_args(args):
         help="Show Hobeta header format description")
     help_parser.set_defaults(func=hobeta_help)
 
-    return parser.parse_args(args)
+    try:
+        options = parser.parse_args(args)
+        if len(args) == 0:
+            raise ValueError
+    except:
+        parser.print_help()
+        sys.exit(0)
+
+    return options
 
 
 def main():

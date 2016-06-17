@@ -8,5 +8,5 @@
 # See LICENSE file in the project root for full license information.
 #
 
-__version__ = '1.0.21'
+__version__ = '1.0.22'
 CHUNK_SIZE = 512 * 1024  # 512 KBytes
