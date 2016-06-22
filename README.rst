@@ -16,6 +16,9 @@ Tools to manipulate ZX Spectrum files
 
 .. image:: http://img.shields.io/pypi/dm/zxtools.svg?style=flat
    :target: https://pypi.python.org/pypi/zxtools
+   
+.. image:: https://img.shields.io/github/issues/codeatcpp/zxtools.svg
+   :target: https://github.com/codeatcpp/zxtools/issues
 
 Here's a set of utils to manipulate files that were copied from a TR-DOS diskette or from a tape.
 
