@@ -16,9 +16,11 @@ import tempfile
 import unittest
 from collections import namedtuple
 import logging
+from mock import patch
 
 from zxtools import zeus2txt
 from zxtools import safe_parse_args
+
 
 
 class TestZeus2Txt(unittest.TestCase):
@@ -26,10 +28,12 @@ class TestZeus2Txt(unittest.TestCase):
         args_parser = zeus2txt.create_parser()
 
         with self.assertRaises(SystemExit):
-            safe_parse_args(args_parser, ["-h", "-v"])
+            with patch('sys.argv', ["zeus2txt.py", "-h", "-v"]):
+                zeus2txt.main()
 
         with self.assertRaises(SystemExit):
-            safe_parse_args(args_parser, [])
+            with patch('sys.argv', ["zeus2txt.py"]):
+                zeus2txt.main()
 
         temp_in_file = tempfile.mkstemp()[1]
         input_file = open(temp_in_file, "w")

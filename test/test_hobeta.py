@@ -18,16 +18,23 @@ import tempfile
 from collections import namedtuple
 from zxtools import hobeta
 from zxtools import safe_parse_args
+from mock import patch
 
 
 class TestHobeta(unittest.TestCase):
     def test_args_parser(self):
-        args_parser = hobeta.create_parser()
         with self.assertRaises(SystemExit):
-            safe_parse_args(args_parser, ["-h", "-v"])
+            with patch('sys.argv', ["hobeta.py", "-h", "-v"]):
+                hobeta.main()
 
         with self.assertRaises(SystemExit):
-            safe_parse_args(args_parser, [])
+            with patch('sys.argv', ["hobeta.py"]):
+                hobeta.main()
+
+        with patch('sys.argv', ["hobeta.py", "hobeta-help"]):
+            hobeta.main()
+
+        args_parser = hobeta.create_parser()
 
         temp_in_file = tempfile.mkstemp()[1]
         input_file = open(temp_in_file, "w")

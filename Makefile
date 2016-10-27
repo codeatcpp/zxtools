@@ -14,7 +14,7 @@ distclean: clean
 
 coverage:
 	coverage run --source zxtools setup.py test
-	coverage report -m --fail-under=90
+	coverage report -m --fail-under=80
 
 lint:
 	pylint zxtools -f parseable -r n

@@ -7,7 +7,7 @@
 # Licensed under the BSD 3-Clause license.
 # See LICENSE file in the project root for full license information.
 #
-""" Global contants is here"""
+"""Global constants and templates are here"""
 
 import sys
 import logging
