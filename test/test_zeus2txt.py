@@ -18,27 +18,30 @@ from collections import namedtuple
 import logging
 
 from zxtools import zeus2txt
+from zxtools import safe_parse_args
 
 
 class TestZeus2Txt(unittest.TestCase):
     def test_args_parser(self):
-        with self.assertRaises(SystemExit):
-            zeus2txt.parse_args(("-h", "-v"))
+        args_parser = zeus2txt.create_parser()
 
         with self.assertRaises(SystemExit):
-            zeus2txt.parse_args(())
+            safe_parse_args(args_parser, ["-h", "-v"])
+
+        with self.assertRaises(SystemExit):
+            safe_parse_args(args_parser, [])
 
         temp_in_file = tempfile.mkstemp()[1]
         input_file = open(temp_in_file, "w")
         input_file.close()
         temp_out_file = tempfile.mkstemp()[1]
         try:
-            args = zeus2txt.parse_args(("info", temp_in_file))
+            args = safe_parse_args(args_parser, ["info", temp_in_file])
             self.assertEqual(args.func, zeus2txt.show_info)
             args.zeus_file.close()
 
-            args = zeus2txt.parse_args(("convert",
-                                        temp_in_file, temp_out_file))
+            args = safe_parse_args(args_parser,
+                                   ["convert", temp_in_file, temp_out_file])
             self.assertEqual(args.func, zeus2txt.convert_file)
             args.zeus_file.close()
             args.output_file.close()

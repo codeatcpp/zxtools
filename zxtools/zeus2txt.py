@@ -11,10 +11,10 @@
 
 import argparse
 import logging
-import sys
 import io
 
 from zxtools import CHUNK_SIZE
+from zxtools import default_main
 
 CODE_ALIGN_WIDTH = 35
 
@@ -109,7 +109,7 @@ def convert_file(parsed_args):
     output.close()
 
 
-def parse_args(args):
+def create_parser():
     """ Parse command line arguments """
     parser = argparse.ArgumentParser(
         description="Zeus Z80 assembler files converter")
@@ -140,25 +140,12 @@ def parse_args(args):
         action='store_true', help="Include original code in the output file")
     convert_parser.set_defaults(func=convert_file)
 
-    try:
-        options = parser.parse_args(args)
-        if len(args) == 0:
-            raise ValueError
-    except ValueError:
-        parser.print_help()
-        sys.exit(0)
-
-    return options
+    return parser
 
 
 def main():
-    """ Entry point """
-    args = parse_args(sys.argv[1:])
-    if args.verbose:
-        logging.basicConfig(level=logging.DEBUG)
-
-    if hasattr(args, 'func'):
-        args.func(args)
+    """Entry point"""
+    default_main(create_parser())
 
 
 if __name__ == '__main__':

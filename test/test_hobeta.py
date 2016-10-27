@@ -17,26 +17,29 @@ import unittest
 import tempfile
 from collections import namedtuple
 from zxtools import hobeta
+from zxtools import safe_parse_args
 
 
 class TestHobeta(unittest.TestCase):
     def test_args_parser(self):
+        args_parser = hobeta.create_parser()
         with self.assertRaises(SystemExit):
-            hobeta.parse_args(("-h", "-v"))
+            safe_parse_args(args_parser, ["-h", "-v"])
 
         with self.assertRaises(SystemExit):
-            hobeta.parse_args(())
+            safe_parse_args(args_parser, [])
 
         temp_in_file = tempfile.mkstemp()[1]
         input_file = open(temp_in_file, "w")
         input_file.close()
         temp_out_file = tempfile.mkstemp()[1]
         try:
-            args = hobeta.parse_args(("info", temp_in_file))
+            args = safe_parse_args(args_parser, ["info", temp_in_file])
             self.assertEqual(args.func, hobeta.show_info)
             args.hobeta_file.close()
 
-            args = hobeta.parse_args(("strip", temp_in_file, temp_out_file))
+            args = safe_parse_args(args_parser,
+                                   ["strip", temp_in_file, temp_out_file])
             self.assertEqual(args.func, hobeta.strip_header)
             args.hobeta_file.close()
             args.output_file.close()
