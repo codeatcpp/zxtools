@@ -10,13 +10,13 @@
 """ Hobeta file utils """
 
 import os
-import sys
 import logging
 import struct
 from collections import namedtuple
 import argparse
 
 from zxtools import CHUNK_SIZE
+from zxtools import default_main
 
 HEADER_FMT = '<8sBHHBBH'
 Header = namedtuple(
@@ -25,6 +25,7 @@ Header = namedtuple(
 
 
 def hobeta_help(*parsed_args):
+    """Shows help"""
     print(
         "Hobeta file has the following format:\n"
         "(this is according to http://speccy.info/Hobeta)\n"
@@ -120,7 +121,7 @@ def strip_header(parsed_args):
     return bytes_to_copy-length
 
 
-def parse_args(args):
+def create_parser():
     """ Parse command line arguments """
     parser = argparse.ArgumentParser(description="Hobeta files converter")
     parser.add_argument(
@@ -154,25 +155,12 @@ def parse_args(args):
         help="Show Hobeta header format description")
     help_parser.set_defaults(func=hobeta_help)
 
-    try:
-        options = parser.parse_args(args)
-        if len(args) == 0:
-            raise ValueError
-    except ValueError:
-        parser.print_help()
-        sys.exit(0)
-
-    return options
+    return parser
 
 
 def main():
-    """ Entry point """
-    args = parse_args(sys.argv[1:])
-    if args.verbose:
-        logging.basicConfig(level=logging.DEBUG)
-
-    if hasattr(args, 'func'):
-        args.func(args)
+    """Entry point"""
+    return default_main(create_parser())
 
 
 if __name__ == '__main__':

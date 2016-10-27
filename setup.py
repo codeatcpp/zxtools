@@ -30,6 +30,7 @@ setup(
     url='http://www.codeatcpp.com',
     license='BSD-3-Clause',
     packages=find_packages(exclude=('test', 'docs')),
+    tests_require=['mock'],
     extras_require={
         'test': dev_requires,
     },

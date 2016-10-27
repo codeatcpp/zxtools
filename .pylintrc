@@ -1,0 +1,11 @@
+[TYPECHECK]
+ignored-classes=Header
+
+[SIMILARITIES]
+
+# Minimum lines number of a similarity.
+min-similarity-lines=7
+
+[MISCELLANEOUS]
+# List of note tags to take in consideration, separated by a comma.
+notes=FIXME,XXX
