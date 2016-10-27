@@ -31,8 +31,8 @@ def read_file(src_file):
         while True:
             chunk = src_file.read(CHUNK_SIZE)
             if chunk:
-                for byte in chunk:
-                    yield byte
+                for cur_char in chunk:
+                    yield cur_char
             else:
                 break
 

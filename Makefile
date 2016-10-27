@@ -1,4 +1,4 @@
-.PHONY: test clean coverage lint distclean
+.PHONY: test clean coverage lint distclean release
 
 PYTHON ?= python3
 
