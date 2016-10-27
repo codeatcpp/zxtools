@@ -7,6 +7,7 @@
 # Licensed under the BSD 3-Clause license.
 # See LICENSE file in the project root for full license information.
 #
+""" Global contants is here"""
 
-__version__ = '1.0.22'
+__version__ = '1.0.23'
 CHUNK_SIZE = 512 * 1024  # 512 KBytes

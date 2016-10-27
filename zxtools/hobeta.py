@@ -25,6 +25,7 @@ Header = namedtuple(
 
 
 def hobeta_help(*parsed_args):
+    """Shows help"""
     print(
         "Hobeta file has the following format:\n"
         "(this is according to http://speccy.info/Hobeta)\n"

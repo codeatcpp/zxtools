@@ -20,16 +20,19 @@ CODE_ALIGN_WIDTH = 35
 
 
 def show_info(*parsed_args):
+    """Show some statistic about Zeus file"""
+    # TODO Implement this function
     return parsed_args
 
 
 def read_file(src_file):
+    """Read source file for future processing"""
     with src_file:
         while True:
             chunk = src_file.read(CHUNK_SIZE)
             if chunk:
-                for b in chunk:
-                    yield b
+                for byte in chunk:
+                    yield byte
             else:
                 break
 
@@ -61,10 +64,10 @@ def convert_file(parsed_args):
     strnum = 0
     cur_buffer = ""
     cur_line = io.StringIO()
-    for b in read_file(parsed_args.zeus_file):
+    for cur_char in read_file(parsed_args.zeus_file):
         if process_string:
-            cur_buffer += "0x%02X " % b
-            if not b:  # End of string
+            cur_buffer += "0x%02X " % cur_char
+            if not cur_char:  # End of string
                 process_string = False
                 strnum_lo = False, 0
                 cur_str = cur_line.getvalue()
@@ -76,25 +79,25 @@ def convert_file(parsed_args):
                     print(file=output)
                 continue
             if tab:
-                print(" "*b, end="", file=cur_line)
+                print(" "*cur_char, end="", file=cur_line)
                 tab = False
                 continue
-            if b == 0x0A:
+            if cur_char == 0x0A:
                 tab = True
                 continue
-            if b < ASM_FIRST_TOKEN:  # Printable character
-                print(chr(b), end="", file=cur_line)
+            if cur_char < ASM_FIRST_TOKEN:  # Printable character
+                print(chr(cur_char), end="", file=cur_line)
                 continue
             try:
-                print(ASM_META[b-ASM_FIRST_TOKEN], end="", file=cur_line)
+                print(ASM_META[cur_char-ASM_FIRST_TOKEN], end="", file=cur_line)
             except IndexError:
                 logger.warning("Token not defined: 0x%02X (%d), at line %05d. "
-                               "Skipped.", b, b, strnum)
+                               "Skipped.", cur_char, cur_char, strnum)
         else:
             if not strnum_lo[0]:
-                strnum_lo = True, b
+                strnum_lo = True, cur_char
             else:
-                strnum = strnum_lo[1] + b*256
+                strnum = strnum_lo[1] + cur_char*256
                 if strnum == 0xFFFF:  # End of file
                     print(file=output)
                     break

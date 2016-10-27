@@ -1,19 +1,24 @@
-.PHONY: init test clean coverage lint
+.PHONY: test clean coverage lint distclean
+
+PYTHON ?= python3
 
 test:
-	python3 -m unittest discover -v -b
+	$(PYTHON) -m unittest discover -v -b
 
 clean:
-	rm -rf test/*.pyc
-	rm -rf zxtools/*.pyc
-	rm -rf test/__pycache__
-	rm -rf zxtools/__pycache__
-	rm -rf zxtools.egg-info
+	rm -rf dist/ build/ *.egg-info
 	rm -rf coverage.xml
+	find . -name '__pycache__' | xargs rm -rf
+
+distclean: clean
 
 coverage:
 	coverage run --source zxtools setup.py test
-	coverage report -m
+	coverage report -m --fail-under=90
 
 lint:
 	pylint zxtools -f parseable -r n
+
+release: clean lint coverage clean
+	$(PYTHON) setup.py sdist bdist_wheel upload
+
