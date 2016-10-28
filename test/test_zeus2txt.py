@@ -19,7 +19,7 @@ import logging
 from mock import patch
 
 from zxtools import zeus2txt
-from zxtools import safe_parse_args
+from zxtools.common import safe_parse_args
 
 
 

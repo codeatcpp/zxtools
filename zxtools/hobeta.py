@@ -16,7 +16,7 @@ from collections import namedtuple
 import argparse
 
 from zxtools import CHUNK_SIZE
-from zxtools import default_main
+from zxtools.common import default_main
 
 HEADER_FMT = '<8sBHHBBH'
 Header = namedtuple(

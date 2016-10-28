@@ -14,7 +14,7 @@ import logging
 import io
 
 from zxtools import CHUNK_SIZE
-from zxtools import default_main
+from zxtools.common import default_main
 
 CODE_ALIGN_WIDTH = 35
 
