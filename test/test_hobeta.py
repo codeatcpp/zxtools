@@ -16,8 +16,10 @@ import struct
 import unittest
 import tempfile
 from collections import namedtuple
+
 from zxtools import hobeta
-from zxtools import safe_parse_args
+from zxtools.common import safe_parse_args
+
 from mock import patch
 
 
