@@ -13,9 +13,6 @@ Tools to manipulate ZX Spectrum files
 
 .. image:: https://img.shields.io/pypi/v/zxtools.svg?style=flat
    :target: https://pypi.python.org/pypi/zxtools
-
-.. image:: http://img.shields.io/pypi/dm/zxtools.svg?style=flat
-   :target: https://pypi.python.org/pypi/zxtools
    
 .. image:: https://img.shields.io/github/issues/codeatcpp/zxtools.svg
    :target: https://github.com/codeatcpp/zxtools/issues
