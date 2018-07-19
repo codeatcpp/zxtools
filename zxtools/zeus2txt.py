@@ -118,6 +118,7 @@ def create_parser():
         action='store_true')
 
     subparsers = parser.add_subparsers(help="Available commands")
+    subparsers.required = False
 
     info_parser = subparsers.add_parser(
         'info',
