@@ -2,8 +2,8 @@
 Tools to manipulate ZX Spectrum files
 =====================================
 
-.. image:: https://img.shields.io/travis/codeatcpp/zxtools/master.svg?style=flat
-   :target: https://travis-ci.org/codeatcpp/zxtools
+.. image:: https://travis-ci.org/codeatcpp/zxtools.svg?branch=master
+    :target: https://travis-ci.org/codeatcpp/zxtools
 
 .. image:: https://codecov.io/gh/codeatcpp/zxtools/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/codeatcpp/zxtools
