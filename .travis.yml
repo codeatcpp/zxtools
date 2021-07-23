@@ -1,12 +1,12 @@
 language: python
 python:
-     - "3.2"
-     - "3.3"
      - "3.4"
      - "3.5"
      - "3.6"
      - "3.7"
-     - "nightly" # currently points to 3.7-dev
+     - "3.8"
+     - "3.9"     
+     - "nightly"
 # command to install dependencies
 install:
      # Coveralls 4.0 doesn't support Python 3.2
