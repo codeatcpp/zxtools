@@ -17,6 +17,9 @@ Tools to manipulate ZX Spectrum files
 .. image:: https://img.shields.io/github/issues/codeatcpp/zxtools.svg
    :target: https://github.com/codeatcpp/zxtools/issues
 
+.. image:: https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjia3ep%2Fzxtools.svg?type=shield
+   :target: https://app.fossa.io/projects/git%2Bgithub.com%2Fjia3ep%2Fzxtools?ref=badge_shield
+
 Here's a set of utils to manipulate files that were copied from a TR-DOS diskette or from a tape.
 
 Originally the tools were written to simplify the following workflow:
