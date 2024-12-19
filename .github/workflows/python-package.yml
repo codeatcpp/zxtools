@@ -28,6 +28,7 @@ jobs:
         else
           pip install coverage
         fi
+        pip install mock
     - name: Run tests
       run: |
         make test
