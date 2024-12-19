@@ -3,7 +3,7 @@
 PYTHON ?= python3
 
 test:
-	$(PYTHON) -m unittest discover -v -b
+	$(PYTHON) setup.py test
 
 clean:
 	rm -rf dist/ build/ *.egg-info
