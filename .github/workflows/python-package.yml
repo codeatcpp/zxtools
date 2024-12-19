@@ -29,6 +29,7 @@ jobs:
           pip install coverage
         fi
         pip install mock
+        pip install setuptools
     - name: Run tests
       run: |
         make test
