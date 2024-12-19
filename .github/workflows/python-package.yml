@@ -2,9 +2,9 @@ name: Python package
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
-    branches: [master]
+    branches: [main]
 
 jobs:
   build:
@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [3.9, 3.12, 3.13]
+        python-version: [3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 3.12]
 
     steps:
     - uses: actions/checkout@v3
@@ -23,17 +23,12 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        if [ "${{ matrix.python-version }}" == "3.2" ]; then
-          pip install coverage==3.7.1
-        else
-          pip install coverage
-        fi
-        pip install mock
-        pip install setuptools
+        python -m pip install --upgrade pip
+        pip install setuptools pytest pytest-cov
+        pip install -e .
     - name: Run tests
       run: |
-        make test
-        make coverage
+        pytest --cov=zxtools --cov-report=term-missing
     - name: Upload coverage to Codecov
       run: bash <(curl -s https://codecov.io/bash)
       if: success()
