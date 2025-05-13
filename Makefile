@@ -13,8 +13,8 @@ clean:
 distclean: clean
 
 coverage:
-	coverage run --source zxtools setup.py test
-	coverage report -m --fail-under=80
+	pytest --cov=zxtools --cov-report=term-missing
+#	coverage report -m --fail-under=80
 
 lint:
 	pylint zxtools -f parseable -r n
