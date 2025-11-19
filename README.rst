@@ -3,8 +3,8 @@ Tools to manipulate ZX Spectrum files
 =====================================
 
 
-.. image:: https://github.com/jia3ep/zxtools/actions/workflows/python-package.yml/badge.svg
-   :target: https://github.com/jia3ep/zxtools/actions/workflows
+.. image:: https://github.com/codeatcpp/zxtools/actions/workflows/python-package.yml/badge.svg
+   :target: https://github.com/codeatcpp/zxtools/actions
 
 .. image:: https://codecov.io/gh/codeatcpp/zxtools/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/codeatcpp/zxtools
@@ -44,3 +44,4 @@ To view the resulting files with syntax colorization you can use special `Visual
 
 .. image:: https://raw.githubusercontent.com/codeatcpp/vscode-language-z80-asm/master/vscode.png
    :target: https://marketplace.visualstudio.com/items?itemName=jia3ep.zeus-z80-asm
+
