@@ -9,5 +9,5 @@
 #
 """Global constants"""
 
-__version__ = '1.0.23'
+__version__ = '1.0.24'
 CHUNK_SIZE = 512 * 1024  # 512 KBytes
